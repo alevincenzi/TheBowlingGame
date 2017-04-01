@@ -63,4 +63,22 @@ public class TestGame {
 		assertEquals(3,  g.currentFrame());
 	}
 	
+	@Test
+	public void simpleStrike() {
+		g.add(10);
+		g.add(3);
+		g.add(6);
+		assertEquals(19, g.scoreForFrame(1));
+		assertEquals(28, g.score());
+		assertEquals(3,  g.currentFrame());
+	}
+	
+	@Test
+	public void perfectGame() {
+		for (int i=0; i < 12; i++)
+			g.add(10);
+		
+		assertEquals(300, g.score());
+		assertEquals(11,  g.currentFrame());
+	}	
 }

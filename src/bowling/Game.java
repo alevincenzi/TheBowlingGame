@@ -15,15 +15,19 @@ public class Game {
 		return itsCurrentFrame;
 	}
 	
-	private void adjustCurrentFrame(){
-		if (!firstThrow)
+	private void adjustCurrentFrame(int pins){
+		
+		if (!firstThrow || (pins == 10))
 			itsCurrentFrame++;
+			
 		firstThrow = !firstThrow;
+		
+		itsCurrentFrame = Math.min(11, itsCurrentFrame);
 	}
 		
 	public void add(int pins) {
 		itsThrows[itsCurrentThrow++] = pins;
-		adjustCurrentFrame(); 
+		adjustCurrentFrame(pins); 
 	}
 
 	public int scoreForFrame(int frame) {
@@ -36,14 +40,22 @@ public class Game {
 			// Using local variables to avoid issues about the order
 			// when evaluating itsThrows[ball++] + itsThrows[ball++];
 			int firstThrow = itsThrows[ball++];
-			int secondThrow = itsThrows[ball++];
 			
-			int frameScore = firstThrow + secondThrow;
+			if (firstThrow == 10)
+				
+				score += 10 + itsThrows[ball] + itsThrows[ball+1];
 			
-			if (frameScore == 10)
-				score += frameScore + itsThrows[ball];
-			else
-				score += frameScore; 
+			else {
+			
+				int secondThrow = itsThrows[ball++];
+			
+				int frameScore = firstThrow + secondThrow;
+			
+				if (frameScore == 10)
+					score += frameScore + itsThrows[ball];
+				else
+					score += frameScore; 
+			}
 		}
 		
 		return score;
