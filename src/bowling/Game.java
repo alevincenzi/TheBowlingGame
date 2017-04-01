@@ -3,8 +3,6 @@ package bowling;
 public class Game {
 
 	private int ball = 0;
-	private int firstThrow;
-	private int secondThrow;
 
 	private int[] itsThrows = new int[21];
 	private int itsCurrentThrow = 0;
@@ -29,22 +27,26 @@ public class Game {
 		itsCurrentFrame = Math.min(11, itsCurrentFrame);
 	}
 
-	private int handleSecondThrow(){
+	private int twoBallsInFrame() {
+		return itsThrows[ball] + itsThrows[ball+1];
+	}
 
-		int score = 0;
-		
-		secondThrow = itsThrows[ball++];
-	
-		int frameScore = firstThrow + secondThrow;
-	
-		if (frameScore == 10)
-			score += frameScore + itsThrows[ball];
-		else
-			score += frameScore;
-		
-		return score;
+	private int nextBallForSpare() {
+		return itsThrows[ball+2];
+	}
+
+	private boolean spare() {
+		return (itsThrows[ball] + itsThrows[ball+1]) == 10;
+	}
+
+	private boolean strike() {
+		return itsThrows[ball] == 10;
 	}
 	
+	private int nextTwoBallsForStrike() {
+		return itsThrows[ball+1] + itsThrows[ball+2];
+	}
+
 	public void add(int pins) {
 		itsThrows[itsCurrentThrow++] = pins;
 		adjustCurrentFrame(pins); 
@@ -57,15 +59,18 @@ public class Game {
 		
 		for (int currentFrame = 0; currentFrame < theFrame; currentFrame++){
 			
-			firstThrow = itsThrows[ball++];
-			
-			if (firstThrow == 10)
-				
-				score += 10 + itsThrows[ball] + itsThrows[ball+1];
-			
-			else 
-
-				score += handleSecondThrow();
+			if (strike()){
+				score += 10 + nextTwoBallsForStrike();
+				ball += 1;
+			}
+			else if (spare()) {
+				score += 10 + nextBallForSpare();
+				ball += 2;
+			}
+			else {
+				score += twoBallsInFrame();
+				ball += 2;
+			}
 		}
 		
 		return score;
