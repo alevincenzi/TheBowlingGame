@@ -2,7 +2,6 @@ package test;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,24 +12,22 @@ public class TestGame {
 	private Game g;
 	
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() throws Exception
+	{
 		g = new Game();
 	}
 
-	@After
-	public void tearDown() throws Exception {
-		// Nothing to do ...
-	}
-	
 	@Test
-	public void twoThrowsNoMark() {
+	public void twoThrowsNoMark()
+	{
 		g.add(5);
 		g.add(4);
 		assertEquals(9, g.score());
 	}
 
 	@Test
-	public void fourThrowsNoMark() {
+	public void fourThrowsNoMark()
+	{
 		g.add(5);
 		g.add(4);
 		g.add(7);
@@ -41,7 +38,8 @@ public class TestGame {
 	}
 	
 	@Test
-	public void simpleSpare() {
+	public void simpleSpare()
+	{
 		g.add(3);
 		g.add(7);
 		g.add(3);
@@ -49,7 +47,8 @@ public class TestGame {
 	}
 	
 	@Test
-	public void simpleFrameAfterSpare() {
+	public void simpleFrameAfterSpare()
+	{
 		g.add(3);
 		g.add(7);
 		g.add(3);
@@ -60,7 +59,8 @@ public class TestGame {
 	}
 	
 	@Test
-	public void simpleStrike() {
+	public void simpleStrike()
+	{
 		g.add(10);
 		g.add(3);
 		g.add(6);
@@ -69,8 +69,8 @@ public class TestGame {
 	}
 	
 	@Test
-	public void perfectGame() {
-		
+	public void perfectGame()
+	{
 		for (int i=0; i < 12; i++)
 			g.add(10);
 		
@@ -78,9 +78,10 @@ public class TestGame {
 	}	
 	
 	@Test
-	public void endOfArray() {
-
-		for (int i=0; i < 9; i++){
+	public void endOfArray()
+	{
+		for (int i=0; i < 9; i++)
+		{
 			g.add(0);
 			g.add(0);
 		}
@@ -93,7 +94,8 @@ public class TestGame {
 	}
 	
 	@Test
-	public void sampleGame(){
+	public void sampleGame()
+	{
 		g.add(1); g.add(4);
 		g.add(4); g.add(5);
 		g.add(6); g.add(4);
@@ -122,8 +124,8 @@ public class TestGame {
 	}
 	
 	@Test
-	public void tenthFrameSpare(){
-
+	public void tenthFrameSpare()
+	{
 		for (int i=0; i < 9; i++)
 			g.add(10);
 		
