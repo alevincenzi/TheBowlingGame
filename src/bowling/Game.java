@@ -2,14 +2,13 @@ package bowling;
 
 public class Game {
 
-	private int itsScore = 0;
 	private int[] itsThrows = new int[21];
 	private int itsCurrentThrow = 0;
 	private int itsCurrentFrame = 1;
 	private boolean firstThrow = true;
 	
 	public int score() {
-		return itsScore;
+		return scoreForFrame(currentFrame()-1);
 	}
 
 	public int currentFrame() {
@@ -24,7 +23,6 @@ public class Game {
 		
 	public void add(int pins) {
 		itsThrows[itsCurrentThrow++] = pins;
-		itsScore += pins;
 		adjustCurrentFrame(); 
 	}
 

@@ -23,13 +23,6 @@ public class TestGame {
 	}
 	
 	@Test
-	public void oneThrow() {
-		g.add(5);
-		assertEquals(5, g.score());
-		assertEquals(1, g.currentFrame());
-	}
-
-	@Test
 	public void twoThrowsNoMark() {
 		g.add(5);
 		g.add(4);
@@ -66,6 +59,7 @@ public class TestGame {
 		g.add(2);
 		assertEquals(13, g.scoreForFrame(1));
 		assertEquals(18, g.scoreForFrame(2));
+		assertEquals(18, g.score());
 		assertEquals(3,  g.currentFrame());
 	}
 	
