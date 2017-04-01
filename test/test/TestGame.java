@@ -75,10 +75,68 @@ public class TestGame {
 	
 	@Test
 	public void perfectGame() {
+		
 		for (int i=0; i < 12; i++)
 			g.add(10);
 		
 		assertEquals(300, g.score());
 		assertEquals(11,  g.currentFrame());
 	}	
+	
+	@Test
+	public void endOfArray() {
+
+		for (int i=0; i < 9; i++){
+			g.add(0);
+			g.add(0);
+		}
+		
+		g.add(2);
+		g.add(8); // 10th frame spare
+		g.add(10); // strike in the last position
+		
+		assertEquals(20, g.score());
+	}
+	
+	@Test
+	public void sampleGame(){
+		g.add(1); g.add(4);
+		g.add(4); g.add(5);
+		g.add(6); g.add(4);
+		g.add(5); g.add(5); 
+		g.add(10);
+		g.add(0); g.add(1);
+		g.add(7); g.add(3);
+		g.add(6); g.add(4);
+		g.add(10);          
+		g.add(2); g.add(8); g.add(6);
+
+		assertEquals(133, g.score());
+	}
+	
+	@Test
+	public void hearthBreak(){
+
+		for (int i=0; i < 9; i++)
+			g.add(10);
+		
+		g.add(10);
+		g.add(10);
+		g.add(9);
+		
+		assertEquals(299, g.score());
+	}
+	
+	@Test
+	public void tenthFrameSpare(){
+
+		for (int i=0; i < 9; i++)
+			g.add(10);
+		
+		g.add(9);
+		g.add(1);
+		g.add(1);
+		
+		assertEquals(270, g.score());
+	}
 }
