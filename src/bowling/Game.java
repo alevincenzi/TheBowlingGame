@@ -5,14 +5,27 @@ public class Game {
 	private int itsScore = 0;
 	private int[] itsThrows = new int[21];
 	private int itsCurrentThrow = 0;
+	private int itsCurrentFrame = 0;
+	private boolean firstThrow = true;
 	
 	public int score() {
 		return itsScore;
 	}
 
+	public int currentFrame() {
+		return itsCurrentFrame;
+	}
+	
+	private void adjustCurrentFrame(){
+		if (firstThrow)
+			itsCurrentFrame++;
+		firstThrow = !firstThrow;
+	}
+		
 	public void add(int pins) {
 		itsThrows[itsCurrentThrow++] = pins;
 		itsScore += pins;
+		adjustCurrentFrame(); 
 	}
 
 	public int scoreForFrame(int frame) {
@@ -30,7 +43,7 @@ public class Game {
 			int frameScore = firstThrow + secondThrow;
 			
 			if (frameScore == 10)
-				score += frameScore + itsThrows[ball++];
+				score += frameScore + itsThrows[ball];
 			else
 				score += frameScore; 
 		}
