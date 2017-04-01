@@ -2,10 +2,14 @@ package bowling;
 
 public class Game {
 
+	private int ball = 0;
+	private int firstThrow;
+	private int secondThrow;
+
 	private int[] itsThrows = new int[21];
 	private int itsCurrentThrow = 0;
 	private int itsCurrentFrame = 1;
-	private boolean firstThrow = true;
+	private boolean firstThrowInFrame = true;
 	
 	public int score() {
 		return scoreForFrame(currentFrame()-1);
@@ -17,45 +21,51 @@ public class Game {
 	
 	private void adjustCurrentFrame(int pins){
 		
-		if (!firstThrow || (pins == 10))
+		if (!firstThrowInFrame || (pins == 10))
 			itsCurrentFrame++;
 			
-		firstThrow = !firstThrow;
+		firstThrowInFrame = !firstThrowInFrame;
 		
 		itsCurrentFrame = Math.min(11, itsCurrentFrame);
 	}
+
+	private int handleSecondThrow(){
+
+		int score = 0;
 		
+		secondThrow = itsThrows[ball++];
+	
+		int frameScore = firstThrow + secondThrow;
+	
+		if (frameScore == 10)
+			score += frameScore + itsThrows[ball];
+		else
+			score += frameScore;
+		
+		return score;
+	}
+	
 	public void add(int pins) {
 		itsThrows[itsCurrentThrow++] = pins;
 		adjustCurrentFrame(pins); 
 	}
 
-	public int scoreForFrame(int frame) {
+	public int scoreForFrame(int theFrame) {
 		
-		int ball = 0;
+		ball = 0;
 		int score = 0;
 		
-		for (int currentFrame = 0; currentFrame < frame; currentFrame++){
+		for (int currentFrame = 0; currentFrame < theFrame; currentFrame++){
 			
-			// Using local variables to avoid issues about the order
-			// when evaluating itsThrows[ball++] + itsThrows[ball++];
-			int firstThrow = itsThrows[ball++];
+			firstThrow = itsThrows[ball++];
 			
 			if (firstThrow == 10)
 				
 				score += 10 + itsThrows[ball] + itsThrows[ball+1];
 			
-			else {
-			
-				int secondThrow = itsThrows[ball++];
-			
-				int frameScore = firstThrow + secondThrow;
-			
-				if (frameScore == 10)
-					score += frameScore + itsThrows[ball];
-				else
-					score += frameScore; 
-			}
+			else 
+
+				score += handleSecondThrow();
 		}
 		
 		return score;
