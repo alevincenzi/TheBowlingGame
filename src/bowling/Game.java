@@ -5,7 +5,7 @@ public class Game {
 	private int itsScore = 0;
 	private int[] itsThrows = new int[21];
 	private int itsCurrentThrow = 0;
-	private int itsCurrentFrame = 0;
+	private int itsCurrentFrame = 1;
 	private boolean firstThrow = true;
 	
 	public int score() {
@@ -17,7 +17,7 @@ public class Game {
 	}
 	
 	private void adjustCurrentFrame(){
-		if (firstThrow)
+		if (!firstThrow)
 			itsCurrentFrame++;
 		firstThrow = !firstThrow;
 	}
