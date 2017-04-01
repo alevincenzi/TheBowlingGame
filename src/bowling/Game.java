@@ -6,14 +6,29 @@ public class Game {
 	private boolean firstThrowInFrame = true;
 	private Scorer itsScorer = new Scorer();
 	
+	private void advanceFrame() {
+		itsCurrentFrame = Math.min(11, itsCurrentFrame + 1);
+	}
+	
+	private boolean adjustFrameForStrike(int pins) {
+		
+		if (pins == 10) {
+			advanceFrame();
+			return true;
+		}
+		
+		return false;
+	}
+	
 	private void adjustCurrentFrame(int pins){
 		
-		if (!firstThrowInFrame || (pins == 10))
-			itsCurrentFrame++;
-			
-		firstThrowInFrame = !firstThrowInFrame;
-		
-		itsCurrentFrame = Math.min(11, itsCurrentFrame);
+		if (firstThrowInFrame) {
+			if (adjustFrameForStrike(pins) == false)
+				firstThrowInFrame = false; 
+		} else {
+			firstThrowInFrame = true;
+			advanceFrame();
+		}	
 	}
 
 	public int score() {
